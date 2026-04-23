@@ -1,0 +1,46 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: activos-backend
+    env_file:
+      - .env
+    volumes:
+      - activos-db:/app/data
+      - ./data/branding:/app/data/branding
+    # NO exposed port - solo acceso interno via nginx
+    expose:
+      - "3000"
+    restart: unless-stopped
+    networks:
+      - asset-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: activos-frontend
+    ports:
+      - "8980:80"
+    restart: unless-stopped
+    networks:
+      - asset-network
+    depends_on:
+      backend:
+        condition: service_healthy
+    volumes:
+      - ./data/branding:/usr/share/nginx/html/data/branding:ro
+
+networks:
+  asset-network:
+    driver: bridge
+
+volumes:
+  activos-db:

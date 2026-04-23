@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+
+# Database (SQLite - se genera automáticamente)
+*.db
+*.db-wal
+*.db-shm
+data/sql/
+
+# Environment
+.env
+.env.example
+
+# Logs
+logs/
+*.log
+
+# Uploads
+frontend/public/uploads/*
+!frontend/public/uploads/.gitkeep
+
+# Branding por defecto (se generan en el contenedor)
+data/branding/*
+!data/branding/.gitkeep
+
+# Docker
+*.pid
+*.sock
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.bak
+
+# Build artifacts
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
