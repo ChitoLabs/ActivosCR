@@ -1364,7 +1364,7 @@ function handleUserSubmit(e) {
     username: username,
     full_name: fullName,
     email: getValue('user-email') || null,
-    role: getValue('user-role'),
+    role: getValue('user-role') || 'operator',
     password: password || null
   };
 
