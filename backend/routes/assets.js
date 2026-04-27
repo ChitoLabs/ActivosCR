@@ -120,7 +120,7 @@ router.get('/export', authenticateToken, (req, res) => {
   query += ' ORDER BY asset_number';
 
   const assets = db.prepare(query).all(...params);
-  const wb = exportAssets(assets);
+  const wb = exportAssets(assets, req.user);
   const buffer = XLSX.write(wb, { bookType: 'xlsx', type: 'buffer' });
 
   const date = new Date().toISOString().split('T')[0];
